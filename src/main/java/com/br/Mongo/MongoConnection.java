@@ -45,7 +45,12 @@ public class MongoConnection {
 
     @PostMapping("/")
     public ResponseEntity criarDocumento(@RequestBody Carro carro){
-        return new ResponseEntity<>(ResponseEntity.accepted(), HttpStatus.ACCEPTED);
+
+        ford.insertOne(new Document("Modelo",carro.getModelo())
+                .append("Ano",carro.getAno())
+                .append("Valor",carro.getValor()));
+
+        return new ResponseEntity<>(carro, HttpStatus.OK);
     }
 
     @GetMapping("/lista")
